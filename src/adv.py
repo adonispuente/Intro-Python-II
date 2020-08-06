@@ -1,5 +1,5 @@
 from room import Room
-
+from player import Player
 # Declare all the rooms
 
 room = {
@@ -24,28 +24,51 @@ earlier adventurers. The only exit is to the south."""),
 
 # Link rooms together
 
-room['outside'].n_to = room['foyer']
-room['foyer'].s_to = room['outside']
-room['foyer'].n_to = room['overlook']
-room['foyer'].e_to = room['narrow']
-room['overlook'].s_to = room['foyer']
-room['narrow'].w_to = room['foyer']
-room['narrow'].n_to = room['treasure']
-room['treasure'].s_to = room['narrow']
+room['outside'].n = room['foyer']
+room['foyer'].s = room['outside']
+room['foyer'].n = room['overlook']
+room['foyer'].e = room['narrow']
+room['overlook'].s = room['foyer']
+room['narrow'].w = room['foyer']
+room['narrow'].n = room['treasure']
+room['treasure'].s = room['narrow']
 
 #
 # Main
 #
-
 # Make a new player object that is currently in the 'outside' room.
+player = Player(room['outside'])
 
+print('Welcome to my little demo game. The rules are simple, you can go north(n), south(s), east(e),and west(w). Find your way to the treasure room! Good Luck!')
 # Write a loop that:
-#
-# * Prints the current room name
-# * Prints the current description (the textwrap module might be useful here).
-# * Waits for user input and decides what to do.
-#
-# If the user enters a cardinal direction, attempt to move to the room there.
-# Print an error message if the movement isn't allowed.
-#
-# If the user enters "q", quit the game.
+while True:
+    #
+    # * Prints the current room name
+    # print(player.location)
+    # * Prints the current description (the textwrap module might be useful here).
+    # * Waits for user input and decides what to do.
+    #
+    # If the user enters a cardinal direction, attempt to move to the room there.
+    # Print an error message if the movement isn't allowed.
+    #
+    # If the user enters "q", quit the game.
+    vinputs = ['n', 's', 'e', 'w']
+    command = input("> ").split(',')
+
+    if command[0] == 'q':
+        break
+    elif command[0] == 'n':
+        # check input, if valid call funciton
+        # check if the player can move to the north
+        player.move(command[0])
+
+    elif command[0] == 's':
+        player.move(command[0])
+    elif command[0] == 'e':
+        player.move(command[0])
+
+    elif command[0] == 'w':
+        player.move(command[0])
+    else:
+        print('Thats not a valid movement')
+    print(player.location)
