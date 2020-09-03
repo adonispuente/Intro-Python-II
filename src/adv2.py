@@ -9,14 +9,14 @@ room = {
                      "North of you, the cave mount beckons"),
 
     'foyer':    Room("Foyer", """Dim light filters in from the south. Dusty
-passages run north and east."""),
+passages run north and east.""", ['rock', 'twig', 'silver coin']),
 
     'overlook': Room("Grand Overlook", """A steep cliff appears before you, falling
 into the darkness. Ahead to the north, a light flickers in
-the distance, but there is no way across the chasm."""),
+the distance, but there is no way across the chasm.""", ["The actual target dog"]),
 
     'narrow':   Room("Narrow Passage", """The narrow passage bends here from west
-to north. The smell of gold permeates the air."""),
+to north. The smell of gold permeates the air.""", ["stainles steal amulet", "picture of the target dog"]),
 
     'treasure': Room("Treasure Chamber", """You've found the long-lost treasure
 chamber! Sadly, it has already been completely emptied by
@@ -51,11 +51,18 @@ while True:
     # If the user enters "q", quit the game.
     vinputs = ('n', 's', 'e', 'w')
     print(player2.location)
+    player2.print_items()
 
     command = input("> ").split(',')
 
     if command[0] == 'n' or command[0] == 's' or command[0] == 'w' or command[0] == 'e':
         player2.move(command[0])
+    if command[0] == '1' or command[0] == '2' or command[0] == '3':
+        player2.additems(int(command[0]) - 1)
+    if command[0] == 'drop':
+        selection = input('which item would you like to drop? ').split(',')
+        player2.dropitems(int(selection[0])-1)
+        print("you have dropped said item")
     elif command[0] == 'q':
         print('looks like its game over! See ya next time!')
         sys.exit()
